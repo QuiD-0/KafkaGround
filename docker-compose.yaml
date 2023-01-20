@@ -71,3 +71,15 @@ services:
       - kafka-2
       - kafka-3
       - zookeeper-1
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: push
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    restart: always
