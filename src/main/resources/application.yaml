@@ -1,0 +1,16 @@
+spring:
+  kafka:
+    bootstrap-servers:
+      - localhost:9092,localhost:9093,localhost:9094
+    consumer:
+      group-id: kafka-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.JsonDeserializer
+    producer:
+      retries: 0
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.JsonDeserializer
+    listener:
+      ack-mode: manual
+
