@@ -5,12 +5,20 @@ import java.util.List;
 
 public record PushMessageReq(String message, String sender, List<String> receiver) {
 
+    public PushMessageReq {
+        if (receiver == null || receiver.isEmpty()) {
+            throw new IllegalArgumentException("receiver is empty");
+        }
+
+    }
+
     public List<PushMessage> toEntityList() {
-        return receiver.stream().map(id -> PushMessage.builder()
-            .message(message)
-            .sender(sender)
-            .receiver(id)
-            .build())
+        return receiver.stream()
+            .map(this::toEntity)
             .toList();
+    }
+
+    private PushMessage toEntity(String id) {
+        return new PushMessage(message, sender, id);
     }
 }
