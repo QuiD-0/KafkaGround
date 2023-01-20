@@ -29,10 +29,13 @@ public class PushMessage {
     @CreatedDate
     private LocalDateTime regDate;
 
-    @Builder
-    public PushMessage(String message, String sender, String receiver) {
+    private PushMessage(String message, String sender, String receiver) {
         this.message = message;
         this.sender = sender;
         this.receiver = receiver;
+    }
+
+    public static PushMessage of(String message, String sender, String receiver) {
+        return new PushMessage(message, sender, receiver);
     }
 }

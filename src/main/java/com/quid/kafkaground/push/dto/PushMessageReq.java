@@ -19,6 +19,6 @@ public record PushMessageReq(String message, String sender, List<String> receive
     }
 
     private PushMessage toEntity(String id) {
-        return new PushMessage(message, sender, id);
+        return PushMessage.of(message, sender, id);
     }
 }
