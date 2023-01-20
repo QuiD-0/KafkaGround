@@ -3,7 +3,8 @@ package com.quid.kafkaground.push.controller;
 import com.quid.kafkaground.push.dto.PushMessageReq;
 import com.quid.kafkaground.push.service.PushService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PushController {
 
     private final PushService pushService;
-    @GetMapping
-    public void push(PushMessageReq message) {
+    @PostMapping
+    public void push(@RequestBody PushMessageReq message) {
         pushService.push(message);
     }
 }

@@ -20,6 +20,6 @@ public class PushServiceImpl implements PushService {
     public void push(PushMessageReq message) {
         pushProducer.push(message);
         log.info("Pushed message: {}", message);
-        repository.save(message.toEntity());
+        repository.saveAll(message.toEntityList());
     }
 }
