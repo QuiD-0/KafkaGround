@@ -13,7 +13,7 @@ public class PushProducer {
     private final KafkaTemplate<String, PushMessageReq> kafkaTemplate;
 
     public void push(PushMessageReq message) {
-        kafkaTemplate.send(PUSH, message);
+        kafkaTemplate.send(PUSH,"pushKey", message);
     }
 
 }

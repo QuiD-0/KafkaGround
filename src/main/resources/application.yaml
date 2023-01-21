@@ -20,7 +20,7 @@ spring:
     url: jdbc:mysql://localhost:3308/push
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       poolName: Hikari
       maximum-pool-size: 10
