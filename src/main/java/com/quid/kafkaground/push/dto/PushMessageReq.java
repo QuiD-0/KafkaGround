@@ -9,7 +9,12 @@ public record PushMessageReq(String message, String sender, List<String> receive
         if (receiver == null || receiver.isEmpty()) {
             throw new IllegalArgumentException("receiver is empty");
         }
-
+        if (message == null || message.isBlank()) {
+            throw new IllegalArgumentException("message is empty");
+        }
+        if (sender == null || sender.isBlank()) {
+            throw new IllegalArgumentException("sender is empty");
+        }
     }
 
     public List<PushMessage> toEntityList() {

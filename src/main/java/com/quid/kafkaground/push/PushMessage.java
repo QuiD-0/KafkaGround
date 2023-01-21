@@ -3,6 +3,7 @@ package com.quid.kafkaground.push;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.quid.kafkaground.push.dto.PushMessageDto;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -37,5 +38,9 @@ public class PushMessage {
 
     public static PushMessage of(String message, String sender, String receiver) {
         return new PushMessage(message, sender, receiver);
+    }
+
+    public PushMessageDto toDto() {
+        return new PushMessageDto(message, sender, receiver);
     }
 }
