@@ -1,11 +1,11 @@
 package com.quid.kafkaground.consumer;
 
 import com.quid.kafkaground.push.dto.PushMessageDto;
-import com.quid.kafkaground.push.repository.PushJpaRepository;
 import com.quid.kafkaground.push.service.PushService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +19,9 @@ public class PushConsumer {
 
     @Transactional
     @KafkaListener(topics = PUSH, groupId = "push-group")
-    public void consume(PushMessageDto message) {
+    public void consume(PushMessageDto message, Acknowledgment acknowledgment) {
         log.info("Consumed message: {}", message);
         pushService.updateSent(message);
+        acknowledgment.acknowledge();
     }
 }
