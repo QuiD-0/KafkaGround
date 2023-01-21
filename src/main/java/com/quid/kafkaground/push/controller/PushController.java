@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PushController {
 
     private final PushService pushService;
+
     @PostMapping
     public void push(@RequestBody PushMessageReq message) {
         pushService.push(message);

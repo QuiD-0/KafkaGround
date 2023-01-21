@@ -16,7 +16,6 @@ public class PushConsumer {
     @KafkaListener(topics = PUSH, groupId = "push-group")
     public void consume(PushMessageReq message) {
         log.info("Consumed message: {}", message);
-        //send push notification
 
     }
 }
