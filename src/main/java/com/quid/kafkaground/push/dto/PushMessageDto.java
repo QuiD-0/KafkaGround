@@ -2,7 +2,7 @@ package com.quid.kafkaground.push.dto;
 
 import lombok.Data;
 
-public record PushMessageDto(String message, String sender, String receiver) {
+public record PushMessageDto(Long id, String message, String sender, String receiver) {
 
     public PushMessageDto {
         if (message == null || message.isBlank()) {
