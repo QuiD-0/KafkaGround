@@ -19,6 +19,6 @@ public class PushController {
 
     @PostMapping
     public void push(@RequestBody PushMessageReq message) {
-        pushService.push(message);
+        pushService.pushRequest(message);
     }
 }

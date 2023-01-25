@@ -18,10 +18,11 @@ public class PushServiceImpl implements PushService {
 
     private final PushProducer pushProducer;
     private final PushJpaRepository pushJpaRepository;
+    private final PushService pushService;
 
 
     @Override
-    public void push(PushMessageReq message) {
+    public void pushRequest(PushMessageReq message) {
         List<PushMessage> pushMessages = message.toEntityList();
         pushJpaRepository.saveAll(pushMessages);
         pushProducer.push(pushMessages);
@@ -37,7 +38,9 @@ public class PushServiceImpl implements PushService {
     }
 
     @Override
+    @Transactional
     public void sendPushMessage(PushMessageDto message) {
         //todo add FCM web notification
+        pushService.updateSent(message);
     }
 }
