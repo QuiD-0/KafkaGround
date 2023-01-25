@@ -22,4 +22,9 @@ public class PushServiceImpl implements PushService {
         log.info("Pushed message: {}", message);
         repository.saveAll(message.toEntityList());
     }
+
+    @Override
+    public void sendPushMessage(PushMessageReq message) {
+        //todo add FCM web notification
+    }
 }
