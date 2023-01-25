@@ -1,5 +1,6 @@
 package com.quid.kafkaground.consumer;
 
+import com.quid.kafkaground.push.dto.PushMessageDto;
 import com.quid.kafkaground.push.service.PushService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

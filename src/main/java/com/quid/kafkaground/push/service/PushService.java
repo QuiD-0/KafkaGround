@@ -8,5 +8,5 @@ public interface PushService {
 
     void updateSent(PushMessageDto message);
 
-    void sendPushMessage(PushMessageReq message);
+    void sendPushMessage(PushMessageDto message);
 }

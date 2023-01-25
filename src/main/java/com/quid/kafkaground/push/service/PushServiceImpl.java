@@ -37,7 +37,7 @@ public class PushServiceImpl implements PushService {
     }
 
     @Override
-    public void sendPushMessage(PushMessageReq message) {
+    public void sendPushMessage(PushMessageDto message) {
         //todo add FCM web notification
     }
 }
