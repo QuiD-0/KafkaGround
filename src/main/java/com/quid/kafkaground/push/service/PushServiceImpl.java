@@ -4,7 +4,7 @@ import com.quid.kafkaground.producer.PushProducer;
 import com.quid.kafkaground.push.PushMessage;
 import com.quid.kafkaground.push.dto.PushMessageDto;
 import com.quid.kafkaground.push.dto.PushMessageReq;
-import com.quid.kafkaground.push.repository.PushJpaRepository;
+import com.quid.kafkaground.push.repository.PushRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,14 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class PushServiceImpl implements PushService {
 
     private final PushProducer pushProducer;
-    private final PushJpaRepository pushJpaRepository;
-    private final PushService pushService;
+    private final PushRepository pushRepository;
 
 
     @Override
-    public void pushRequest(PushMessageReq message) {
+    public void push(PushMessageReq message) {
         List<PushMessage> pushMessages = message.toEntityList();
-        pushJpaRepository.saveAll(pushMessages);
+        pushRepository.saveAll(pushMessages);
         pushProducer.push(pushMessages);
         log.info("Pushed message: {}", pushMessages);
     }
@@ -32,15 +31,6 @@ public class PushServiceImpl implements PushService {
     @Override
     @Transactional
     public void updateSent(PushMessageDto message) {
-        pushJpaRepository.findById(message.id())
-            .orElseThrow(IllegalAccessError::new)
-            .sent();
-    }
-
-    @Override
-    @Transactional
-    public void sendPushMessage(PushMessageDto message) {
-        //todo add FCM web notification
-        pushService.updateSent(message);
+        pushRepository.updateSent(message.id());
     }
 }

@@ -6,21 +6,19 @@ import static lombok.AccessLevel.PROTECTED;
 import com.quid.kafkaground.push.dto.PushMessageDto;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @ToString
-@Table(name = "PUSH_MESSAGE")
+@Table(indexes = {
+    @Index(name = "IDX_PUSH_MESSAGE_SENT", columnList = "sender"),
+})
 @NoArgsConstructor(access = PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
 public class PushMessage {
 
     @Id
@@ -29,7 +27,6 @@ public class PushMessage {
     private String message;
     private String sender;
     private String receiver;
-    @CreatedDate
     private LocalDateTime regDate;
     private boolean sent;
 
@@ -38,6 +35,7 @@ public class PushMessage {
         this.sender = sender;
         this.receiver = receiver;
         this.sent = false;
+        this.regDate = LocalDateTime.now();
     }
 
     public static PushMessage of(String message, String sender, String receiver) {
@@ -45,7 +43,7 @@ public class PushMessage {
     }
 
     public PushMessageDto toDto() {
-        return new PushMessageDto(id,message, sender, receiver);
+        return new PushMessageDto(id, message, sender, receiver);
     }
 
     public void sent() {
