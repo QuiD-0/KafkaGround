@@ -19,7 +19,7 @@ public class PushConsumer {
     @KafkaListener(topics = PUSH, groupId = "push-group")
     public void consume(PushMessageDto message, Acknowledgment acknowledgment) {
         log.info("Consumed message: {}", message);
-        pushService.sendPushMessage(message);
+        pushService.updateSent(message);
         acknowledgment.acknowledge();
     }
 }

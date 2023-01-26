@@ -4,9 +4,8 @@ import com.quid.kafkaground.push.dto.PushMessageDto;
 import com.quid.kafkaground.push.dto.PushMessageReq;
 
 public interface PushService {
-    void pushRequest(PushMessageReq message);
+
+    void push(PushMessageReq message);
 
     void updateSent(PushMessageDto message);
-
-    void sendPushMessage(PushMessageDto message);
 }
