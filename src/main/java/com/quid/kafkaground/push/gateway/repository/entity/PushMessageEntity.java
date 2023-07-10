@@ -38,12 +38,9 @@ public class PushMessageEntity {
         this.regDate = LocalDateTime.now();
     }
 
-    public static PushMessageEntity of(String message, String sender, String receiver) {
-        return new PushMessageEntity(message, sender, receiver);
-    }
 
     public static PushMessageEntity fromDomain(PushMessage pushMessage) {
-        return PushMessageEntity.of(pushMessage.getMessage(), pushMessage.getSender(), pushMessage.getReceiver());
+        return new PushMessageEntity(pushMessage.getMessage(), pushMessage.getSender(), pushMessage.getReceiver());
     }
 
     public PushMessage toDomain() {
