@@ -1,7 +1,7 @@
-package com.quid.kafkaground.push.controller;
+package com.quid.kafkaground.push.gateway.controller;
 
-import com.quid.kafkaground.push.dto.PushMessageReq;
-import com.quid.kafkaground.push.service.PushService;
+import com.quid.kafkaground.push.gateway.controller.dto.PushMessageReq;
+import com.quid.kafkaground.push.usecase.MessagePush;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/push")
 public class PushController {
 
-    private final PushService pushService;
+    private final MessagePush pushService;
 
     @PostMapping
     public void push(@RequestBody PushMessageReq message) {

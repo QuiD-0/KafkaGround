@@ -1,5 +1,6 @@
-package com.quid.kafkaground.push.dto;
+package com.quid.kafkaground.push.gateway.controller.dto;
 
+import com.quid.kafkaground.push.domain.PushMessage;
 import lombok.Data;
 
 public record PushMessageDto(Long id, String message, String sender, String receiver) {
@@ -17,4 +18,7 @@ public record PushMessageDto(Long id, String message, String sender, String rece
     }
 
 
+    public static PushMessageDto fromDomain(PushMessage pushMessage) {
+        return new PushMessageDto(pushMessage.getId(), pushMessage.getMessage(), pushMessage.getSender(), pushMessage.getReceiver());
+    }
 }

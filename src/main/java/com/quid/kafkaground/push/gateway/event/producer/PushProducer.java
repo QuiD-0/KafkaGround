@@ -1,7 +1,8 @@
-package com.quid.kafkaground.producer;
+package com.quid.kafkaground.push.gateway.event.producer;
 
-import com.quid.kafkaground.push.PushMessage;
-import com.quid.kafkaground.push.dto.PushMessageDto;
+import com.quid.kafkaground.push.domain.PushMessage;
+import com.quid.kafkaground.push.gateway.repository.entity.PushMessageEntity;
+import com.quid.kafkaground.push.gateway.controller.dto.PushMessageDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -16,7 +17,7 @@ public class PushProducer {
 
     public void push(List<PushMessage> message) {
         message.stream()
-            .map(PushMessage::toDto)
+            .map(PushMessageDto::fromDomain)
             .forEach(this::send);
     }
 

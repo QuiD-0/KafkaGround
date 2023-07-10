@@ -1,6 +1,6 @@
-package com.quid.kafkaground.push.dto;
+package com.quid.kafkaground.push.gateway.controller.dto;
 
-import com.quid.kafkaground.push.PushMessage;
+import com.quid.kafkaground.push.domain.PushMessage;
 import java.util.List;
 
 public record PushMessageReq(String message, String sender, List<String> receiver) {
@@ -17,13 +17,13 @@ public record PushMessageReq(String message, String sender, List<String> receive
         }
     }
 
-    public List<PushMessage> toEntityList() {
+    public List<PushMessage> toDomainList() {
         return receiver.stream()
-            .map(this::toEntity)
+            .map(this::toDomain)
             .toList();
     }
 
-    private PushMessage toEntity(String id) {
-        return PushMessage.of(message, sender, id);
+    private PushMessage toDomain(String id) {
+        return PushMessage.create(message, sender, id);
     }
 }

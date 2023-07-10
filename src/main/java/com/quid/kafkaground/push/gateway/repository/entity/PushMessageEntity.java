@@ -1,9 +1,9 @@
-package com.quid.kafkaground.push;
+package com.quid.kafkaground.push.gateway.repository.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-import com.quid.kafkaground.push.dto.PushMessageDto;
+import com.quid.kafkaground.push.domain.PushMessage;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +19,7 @@ import lombok.ToString;
     @Index(name = "IDX_PUSH_MESSAGE_SENT", columnList = "sender"),
 })
 @NoArgsConstructor(access = PROTECTED)
-public class PushMessage {
+public class PushMessageEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -28,25 +28,25 @@ public class PushMessage {
     private String sender;
     private String receiver;
     private LocalDateTime regDate;
-    private boolean sent;
+    private Boolean isPublished;
 
-    private PushMessage(String message, String sender, String receiver) {
+    private PushMessageEntity(String message, String sender, String receiver) {
         this.message = message;
         this.sender = sender;
         this.receiver = receiver;
-        this.sent = false;
+        this.isPublished = false;
         this.regDate = LocalDateTime.now();
     }
 
-    public static PushMessage of(String message, String sender, String receiver) {
-        return new PushMessage(message, sender, receiver);
+    public static PushMessageEntity of(String message, String sender, String receiver) {
+        return new PushMessageEntity(message, sender, receiver);
     }
 
-    public PushMessageDto toDto() {
-        return new PushMessageDto(id, message, sender, receiver);
+    public static PushMessageEntity fromDomain(PushMessage pushMessage) {
+        return PushMessageEntity.of(pushMessage.getMessage(), pushMessage.getSender(), pushMessage.getReceiver());
     }
 
-    public void sent() {
-        this.sent = true;
+    public PushMessage toDomain() {
+        return PushMessage.of(id, message, sender, receiver, regDate, isPublished);
     }
 }
