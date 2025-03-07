@@ -1,46 +1,28 @@
 spring:
   kafka:
     bootstrap-servers:
-      - localhost:9092,localhost:9093,localhost:9094
+      - localhost:9092
     consumer:
-      group-id: push-group
-      auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
     producer:
-      retries: 0
+      retries: 3
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     listener:
-      ack-mode: manual
+      ack-mode: manual_immediate
     properties:
       spring.json.trusted.packages: "*"
 
   datasource:
-    url: jdbc:mysql://localhost:3308/push
+    url: jdbc:mysql://localhost:3308/kafka
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      poolName: Hikari
-      maximum-pool-size: 10
-      max-lifetime: 1800000
-      auto-commit: false
-      data-source-properties:
-        cachePrepStmts: true
-        prepStmtCacheSize: 250
-        prepStmtCacheSqlLimit: 2048
-        useServerPrepStmts: true
-        useLocalSessionState: true
-        rewriteBatchedStatements: true
-        cacheResultSetMetadata: true
-        cacheServerConfiguration: true
-        elideSetAutoCommits: true
-        maintainTimeStats: false
 
   jpa:
     hibernate:
       ddl-auto: update
-    database: mysql
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
