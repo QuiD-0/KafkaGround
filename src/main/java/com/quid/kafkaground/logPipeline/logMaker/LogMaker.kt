@@ -1,4 +1,4 @@
-package com.quid.kafkaground.logPipeline.dummy
+package com.quid.kafkaground.logPipeline.logMaker
 
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
@@ -21,10 +21,10 @@ class LogMaker(
 
     companion object {
         private val logTemplate = listOf(
-            "INFO: sample info log message",
-            "WARN: sample warning log message",
-            "ERROR: sample error log message",
-            "DEBUG: sample debug log message"
+            "[INFO] sample info log message",
+            "[WARN] sample warning log message",
+            "[ERROR] sample error log message",
+            "[DEBUG] sample debug log message"
         )
     }
 }
