@@ -1,7 +1,7 @@
 spring:
   kafka:
     bootstrap-servers:
-      - localhost:9092
+      - localhost:3401,localhost:3402,localhost:3403
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
