@@ -8,9 +8,9 @@ class LogMapperTest {
 
     @Test
     fun logMessageToLogPersistEntity() {
-        val logMessage = "${LocalDateTime.now()} [INFO] message"
+        val logMessage = "${LocalDateTime.now()} [INFO] message test"
         val logPersistEntity = LogMapper.toPersistEntity(logMessage)
-        assertEquals("message", logPersistEntity.msg)
+        assertEquals("message test", logPersistEntity.msg)
         assertEquals("INFO", logPersistEntity.level)
     }
 }
