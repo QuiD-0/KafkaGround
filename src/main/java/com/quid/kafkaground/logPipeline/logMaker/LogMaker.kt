@@ -12,11 +12,9 @@ class LogMaker(
     private val logProducer: LogProducer
 ) {
 
-    @Scheduled(fixedDelay = 500)
+    @Scheduled(fixedDelay = 200)
     fun makeLog() {
-        SecureRandom().nextInt(4).let {
-            logProducer.produce("${LocalDateTime.now()} ${logTemplate[it]}")
-        }
+        SecureRandom().nextInt(4).let { logProducer.produce("${LocalDateTime.now()} ${logTemplate[it]}") }
     }
 
     companion object {

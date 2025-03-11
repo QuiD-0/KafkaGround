@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component
 class LogBatchConsumer(
     private val repository: LogRepository
 ) {
-
-    @KafkaListener(topics = ["log"], groupId = "log-batch-persist")
+    @KafkaListener(topics = ["log"], groupId = "log-batch-persist", concurrency = "3")
     fun consume(logs: List<String>) {
         repository.saveAll(logs)
     }

@@ -9,6 +9,6 @@ class LogProducer(
 ) {
 
     fun produce(log: String) {
-        kafkaTemplate.send("log", log)
+        kafkaTemplate.send("log", log, log)
     }
 }
