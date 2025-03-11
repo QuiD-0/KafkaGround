@@ -20,7 +20,7 @@ class LogMaker(
     }
 
     companion object {
-        private val logTemplate = listOf(
+        private val logTemplate = arrayOf(
             "[INFO] sample info log message",
             "[WARN] sample warning log message",
             "[ERROR] sample error log message",

@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentLinkedQueue
 @Repository
 class LogBufferRepository(
     private val jdbc: LogJdbcRepository
-) {
+): LogRepository {
     private val threshold = 50
     private val buffer: MutableMap<String, ConcurrentLinkedQueue<LogPersistEntity>> = ConcurrentHashMap(
         mapOf(
@@ -20,10 +20,9 @@ class LogBufferRepository(
         )
     )
 
-    fun saveAll(message: List<LogPersistEntity>) {
-        message.forEach {
-            addLog(it.level, it)
-        }
+    override fun saveAll(logs: List<String>) {
+        logs.map { LogMapper.toPersistEntity(it) }
+            .forEach { addLog(it.level, it) }
     }
 
     private fun addLog(level: String, message: LogPersistEntity) {

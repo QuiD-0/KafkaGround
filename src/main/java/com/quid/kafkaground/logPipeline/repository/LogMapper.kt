@@ -4,11 +4,11 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 object LogMapper {
-    fun mapToEntity(log: String): LogPersistEntity {
+    fun toPersistEntity(log: String): LogPersistEntity {
         val (timestamp, level, message) = log.split(" ")
 
         val levelText = level.substring(1, level.length - 1)
-        val dateTime = LocalDateTime.parse(timestamp, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"))
+        val dateTime = LocalDateTime.parse(timestamp, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"))
 
         return LogPersistEntity(
             message,
