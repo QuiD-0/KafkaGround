@@ -9,7 +9,7 @@ class LogBatchConsumer(
     private val repository: LogRepository
 ) {
 
-    @KafkaListener(topics = ["log"], groupId = "log-batch-consumer")
+    @KafkaListener(topics = ["log"], groupId = "log-batch-persist")
     fun consume(logs: List<String>) {
         repository.saveAll(logs)
     }

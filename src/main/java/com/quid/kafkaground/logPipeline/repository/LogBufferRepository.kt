@@ -1,6 +1,7 @@
 package com.quid.kafkaground.logPipeline.repository
 
 import jakarta.annotation.PreDestroy
+import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Repository
 import java.util.concurrent.ConcurrentHashMap
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue
 class LogBufferRepository(
     private val jdbc: LogJdbcRepository
 ): LogRepository {
+    private val log = LoggerFactory.getLogger(this::class.java)!!
     private val threshold = 50
     private val buffer: MutableMap<String, ConcurrentLinkedQueue<LogPersistEntity>> = ConcurrentHashMap(
         mapOf(
@@ -41,7 +43,7 @@ class LogBufferRepository(
                 queue.poll()?.let { logs.add(it) }
             }
             if (logs.isNotEmpty()) {
-                saveLogs(logs)
+                saveLogs(level, logs)
             }
         }
     }
@@ -50,17 +52,20 @@ class LogBufferRepository(
         buffer.keys.forEach { flush(it) }
     }
 
-    private fun saveLogs(logs: List<LogPersistEntity>) {
-        jdbc.bulkInsert(logs)
+    private fun saveLogs(level:String, logs: List<LogPersistEntity>) {
+        log.info("Saving ${logs.size} $level logs")
+        jdbc.bulkInsert(level, logs)
     }
 
     @Scheduled(fixedRate = 60_000L)
     fun scheduledFlush() {
+        log.info("Scheduled flushing logs")
         flushAll()
     }
 
     @PreDestroy
     fun flushOnDestroy() {
+        log.info("Flushing logs on destroy")
         flushAll()
     }
 }
