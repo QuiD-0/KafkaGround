@@ -10,12 +10,13 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     listener:
-      ack-mode: manual_immediate
+      ack-mode: BATCH
+      type: batch
     properties:
       spring.json.trusted.packages: "*"
 
   datasource:
-    url: jdbc:mysql://localhost:3308/kafka
+    url: jdbc:mysql://localhost:3308/kafka?rewriteBatchedStatements=true
     username: root
     password: root
 
@@ -26,3 +27,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: debug
